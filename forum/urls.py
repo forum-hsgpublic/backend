@@ -16,7 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from rest_framework.routers import DefaultRouter
+from .views import UserViewSet, CategoryViewSet, PostViewSet, CommentViewSet, TagViewSet, PostTagViewSet
+
+router = DefaultRouter()
+router.register(r'users', UserViewSet)
+router.register(r'categories', CategoryViewSet)
+router.register(r'posts', PostViewSet)
+router.register(r'comments', CommentViewSet)
+router.register(r'tags', TagViewSet)
+router.register(r'post_tags', PostTagViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include('router.urls')),
 ]
