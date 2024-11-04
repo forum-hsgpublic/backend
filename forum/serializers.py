@@ -7,6 +7,21 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['user_id', 'login_id', 'email', 'join_date', 'last_login']
 
+class SignupSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True, required=True)
+
+    class Meta:
+        model = User
+        fields = ('login_id', 'email', 'password', 'join_date', 'last_login')
+
+    def create(self, validated_data):
+        user = User.objects.create_user(
+            login_id=validated_data['login_id'],
+            email=validated_data['email'],
+            password=validated_data['password']
+        )
+        return user
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
