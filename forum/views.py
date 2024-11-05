@@ -1,5 +1,6 @@
 # forum/views.py
 from rest_framework import viewsets, status
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -12,6 +13,8 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 class SignupView(APIView):
+    permission_classes = [AllowAny]
+
     def post(self, request):
         serializer = SignupSerializer(data=request.data)
         if serializer.is_valid():
@@ -20,6 +23,8 @@ class SignupView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class TokenView(APIView):
+    permission_classes = [AllowAny]
+    
     def post(self, request):
         login_id = request.data['login_id']
         password = request.data['password']
