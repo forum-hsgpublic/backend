@@ -23,6 +23,7 @@ from .views import (
     UserViewSet,
     SignupView,
     TokenView,
+    UserProfileView,
     CategoryViewSet,
     PostViewSet,
     CommentViewSet,
@@ -44,4 +45,5 @@ urlpatterns = [
     path('api/signup/', SignupView.as_view(), name='signup'),
     path('api/token/', TokenView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/profile/', UserProfileView.as_view()),
 ]

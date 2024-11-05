@@ -53,6 +53,12 @@ class TokenView(APIView):
             return response
         return Response({"message: 사용자 인증이 실패했습니다."}, status=status.HTTP_400_BAD_REQUEST)
 
+class UserProfileView(APIView):
+    def get(self, request):
+        user = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
