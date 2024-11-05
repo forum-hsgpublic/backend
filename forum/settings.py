@@ -77,6 +77,10 @@ WSGI_APPLICATION = 'forum.wsgi.application'
 
 AUTH_USER_MODEL = 'forum.User'
 
+SIMPLE_JWT = {
+    "USER_ID_FIELD": "pk",
+}
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
