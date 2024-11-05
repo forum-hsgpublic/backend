@@ -75,6 +75,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'forum.wsgi.application'
 
+AUTH_USER_MODEL = 'forum.User'
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',

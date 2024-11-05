@@ -5,14 +5,14 @@ from .models import User, Category, Post, Comment, Tag, PostTag
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['user_id', 'login_id', 'email', 'join_date', 'last_login']
+        fields = ['user_id', 'login_id', 'email']
 
 class SignupSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True)
 
     class Meta:
         model = User
-        fields = ('login_id', 'email', 'password', 'join_date', 'last_login')
+        fields = ('login_id', 'email', 'password')
 
     def create(self, validated_data):
         user = User.objects.create_user(
