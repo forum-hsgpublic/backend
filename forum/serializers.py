@@ -5,7 +5,7 @@ from .models import User, Category, Post, Comment, Tag, PostTag
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['user_id', 'login_id', 'email']
+        fields = ['user_id', 'login_id', 'email', 'join_date', 'is_superuser', 'is_active', 'is_staff']
 
 class SignupSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True)
