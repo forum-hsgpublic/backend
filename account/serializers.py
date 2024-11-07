@@ -20,14 +20,20 @@ class SignupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['login_id', 'email', 'password']
+        fields = ['login_id', 'email', 'password', 'password2']
 
-    def create(self, validated_data):
-        user = User.objects.create_user(
-            login_id=validated_data['login_id'],
-            email=validated_data['email'],
-            password=validated_data['password']
+    def save(self):
+        password = self.validated_data['password']
+        password2 = self.validated_data['password2']
+        if password != password2:
+            raise serializers.ValidationError({"password": "비밀번호가 일치하지 않습니다."})
+
+        user = User(
+            login_id=self.validated_data['login_id'],
+            email=self.validated_data['email'],
         )
+        user.set_password(password)
+        user.save()
         return user
     
 class TokenSerializer(serializers.ModelSerializer):
