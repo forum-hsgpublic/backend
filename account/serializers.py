@@ -37,5 +37,5 @@ class SignupSerializer(serializers.ModelSerializer):
         return user
     
 class TokenSerializer(serializers.ModelSerializer):
-    user_id = serializers.CharField()
+    login_id = serializers.CharField()
     password = serializers.CharField(write_only=True, style={"input_type": "password"})
