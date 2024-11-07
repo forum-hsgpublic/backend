@@ -16,7 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
         ]
 
 class SignupSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True, required=True)
+    password = serializers.CharField(write_only=True, required=True, style={"input_type": "password"})
 
     class Meta:
         model = User
@@ -29,3 +29,7 @@ class SignupSerializer(serializers.ModelSerializer):
             password=validated_data['password']
         )
         return user
+    
+class TokenSerializer(serializers.ModelSerializer):
+    user_id = serializers.CharField()
+    password = serializers.CharField(write_only=True, style={"input_type": "password"})
