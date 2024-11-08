@@ -1,5 +1,6 @@
-from rest_framework import viewsets, status, decorators
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import viewsets, status
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt import tokens
@@ -12,7 +13,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 class SignupView(APIView):
-    @decorators.permission_classes([])
+    @permission_classes([AllowAny])
     def post(self, request):
         serializer = SignupSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -23,7 +24,7 @@ class SignupView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class TokenView(APIView):
-    @decorators.permission_classes([])
+    @permission_classes([AllowAny])
     def post(self, request):
         serializer = TokenSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -52,7 +53,7 @@ class TokenView(APIView):
             return response
         return Response({"message: 아이디 또는 비밀번호가 유효하지 않습니다."}, status=status.HTTP_400_BAD_REQUEST)
     
-    @decorators.permission_classes([IsAuthenticated])
+    @permission_classes([IsAuthenticated])
     def delete(self, request):
         refresh_token = request.COOKIES.get('refresh_token')
         token = tokens.RefreshToken(refresh_token)
