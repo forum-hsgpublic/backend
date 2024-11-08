@@ -18,6 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from account.urls import router as account_router
 from .views import (
     CategoryViewSet,
     PostViewSet,
@@ -32,9 +33,9 @@ router.register(r'posts', PostViewSet)
 router.register(r'comments', CommentViewSet)
 router.register(r'tags', TagViewSet)
 router.register(r'post_tags', PostTagViewSet)
+router.registry.extend(account_router.registry)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('api/auth/', include('account.urls')),
 ]

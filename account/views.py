@@ -1,20 +1,20 @@
-from rest_framework import viewsets, status
+from rest_framework import status
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet, ViewSet
 from rest_framework_simplejwt import tokens
 from django.contrib.auth import authenticate
 from .models import User
 from .serializers import UserSerializer, SignupSerializer, TokenSerializer
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-class SignupView(APIView):
+class SignupViewSet(ViewSet):
     @permission_classes([AllowAny])
-    def post(self, request):
+    def create(self, request):
         serializer = SignupSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
@@ -23,9 +23,9 @@ class SignupView(APIView):
             return Response({"message": "회원가입이 완료되었습니다."}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-class TokenView(APIView):
+class TokenViewSet(ViewSet):
     @permission_classes([AllowAny])
-    def post(self, request):
+    def create(self, request):
         serializer = TokenSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
@@ -54,7 +54,7 @@ class TokenView(APIView):
         return Response({"message: 아이디 또는 비밀번호가 유효하지 않습니다."}, status=status.HTTP_400_BAD_REQUEST)
     
     @permission_classes([IsAuthenticated])
-    def delete(self, request):
+    def destroy(self, request):
         refresh_token = request.COOKIES.get('refresh_token')
         token = tokens.RefreshToken(refresh_token)
         token.blacklist()
