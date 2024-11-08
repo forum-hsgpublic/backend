@@ -18,12 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from rest_framework_simplejwt.views import TokenRefreshView
 from .views import (
-    UserViewSet,
-    SignupView,
-    TokenView,
-    UserProfileView,
     CategoryViewSet,
     PostViewSet,
     CommentViewSet,
@@ -32,7 +27,6 @@ from .views import (
 )
 
 router = DefaultRouter()
-router.register(r'users', UserViewSet)
 router.register(r'categories', CategoryViewSet)
 router.register(r'posts', PostViewSet)
 router.register(r'comments', CommentViewSet)
@@ -42,8 +36,5 @@ router.register(r'post_tags', PostTagViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('api/signup/', SignupView.as_view(), name='signup'),
-    path('api/token/', TokenView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/profile/', UserProfileView.as_view()),
+    path('api/auth/', include('account.urls')),
 ]
