@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'forum',
+    'account',
 ]
 
 MIDDLEWARE = [
@@ -75,7 +76,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'forum.wsgi.application'
 
-AUTH_USER_MODEL = 'forum.User'
+AUTH_USER_MODEL = 'account.User'
 
 SIMPLE_JWT = {
     "USER_ID_FIELD": "pk",
