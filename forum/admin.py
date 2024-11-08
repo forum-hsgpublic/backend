@@ -1,6 +1,7 @@
 # forum/admin.py
 from django.contrib import admin
-from .models import User, Category, Post, Comment, Tag, PostTag
+from account.models import User
+from .models import Category, Post, Comment, Tag, PostTag
 
 admin.site.register(User)
 admin.site.register(Category)
