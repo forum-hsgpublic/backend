@@ -13,6 +13,8 @@ class UserViewSet(ModelViewSet):
     serializer_class = UserSerializer
 
 class SignupViewSet(ViewSet):
+    serializer_class = SignupSerializer
+    
     @permission_classes([AllowAny])
     def create(self, request):
         serializer = SignupSerializer(data=request.data)
@@ -24,6 +26,8 @@ class SignupViewSet(ViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class TokenViewSet(ViewSet):
+    serializer_class = TokenSerializer
+    
     @permission_classes([AllowAny])
     def create(self, request):
         serializer = TokenSerializer(data=request.data)
