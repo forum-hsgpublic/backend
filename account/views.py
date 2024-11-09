@@ -38,7 +38,7 @@ class TokenViewSet(ViewSet):
         user = authenticate(login_id=login_id, password=password)
 
         if user is not None:
-            token = tokens.RefreshToken(user)
+            token = tokens.RefreshToken.for_user(user)
             refresh_token = str(token)
             access_token = str(token.access_token)
             response = Response(
